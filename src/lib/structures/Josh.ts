@@ -334,11 +334,11 @@ export class Josh<Value = unknown> {
 
 	public static defaultProvider: Constructor<JoshProvider> = MapProvider;
 
-	public static multi(names: string[], options: Omit<JoshOptions, 'name'>) {
-		const returnvalue: Record<string, unknown> = {};
-		for (const name of names) {
-			const josh = new Josh({ name, ...options });
-			returnvalue[name] = josh;
+	public static multi(instances: string[], options: Omit<JoshOptions, 'name'>) {
+		const returnvalue: Record<string, Josh> = {};
+		for (const instance of instances) {
+			const josh = new Josh({ name: instance, ...options });
+			returnvalue[instance] = josh;
 		}
 		return returnvalue;
 	}
