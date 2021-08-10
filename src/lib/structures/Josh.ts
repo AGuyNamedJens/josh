@@ -333,6 +333,19 @@ export class Josh<Value = unknown> {
 	}
 
 	public static defaultProvider: Constructor<JoshProvider> = MapProvider;
+
+	public static multi(names: string[], options: Omit<JoshOptions, 'name'>) {
+		if (!names.length || names.length < 1) {
+			throw new JoshError('"names" argument must be an array of string names.', 'JoshTypeError');
+		}
+
+		const returnvalue: Record<string, unknown> = {};
+		for (const name of names) {
+			const josh = new Josh({ name, ...options });
+			returnvalue[name] = josh;
+		}
+		return returnvalue;
+	}
 }
 
 export interface JoshOptions<T = unknown> {
